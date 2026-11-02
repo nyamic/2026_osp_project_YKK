@@ -1,0 +1,117 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block section %}
+
+<main class="auth-page">
+
+  <!-- 로고 -->
+  <div class="auth-logo">
+    <a href="/">
+      <img src="#" alt="EWHA MARKET 로고">
+    </a>
+  </div>
+
+  <!-- 로그인 / 회원가입 탭 -->
+  <div class="auth-tabs">
+    <a href="#" class="auth-tab">로그인</a>
+    <a href="#" class="auth-tab active">회원가입</a>
+  </div>
+
+  <!-- 회원가입 폼 -->
+  <section class="auth-container signup-container">
+    <form class="auth-form" method="POST">
+      {% csrf_token %}
+      <div class="auth-input-list">
+        <!-- 아이디 -->
+        <div class="auth-input-group">
+          <label for="user-id" class="auth-label">아이디</label>
+          <div class="auth-id-input">
+            <input
+              type="text"
+              id="user-id"
+              name="username"
+              class="auth-input"
+              required
+            >
+
+            <button type="button" class="auth-check-button">
+              중복확인
+            </button>
+          </div>
+        </div>
+
+        <!-- 비밀번호 -->
+        <div class="auth-input-group">
+          <label for="user-password" class="auth-label">비밀번호</label>
+
+          <input
+            type="password"
+            id="user-password"
+            name="password"
+            class="auth-input"
+            required
+          >
+        </div>
+
+        <!-- 비밀번호 확인 -->
+        <div class="auth-input-group">
+          <label for="password-confirm" class="auth-label">비밀번호 확인</label>
+
+          <input
+            type="password"
+            id="password-confirm"
+            name="password_confirm"
+            class="auth-input"
+            required
+          >
+        </div>
+
+        <!-- 이메일 -->
+        <div class="auth-input-group">
+          <label for="email" class="auth-label">이메일 주소</label>
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="auth-input"
+            required
+          >
+        </div>
+
+        <!-- 전화번호 -->
+        <div class="auth-input-group">
+          <label for="phone" class="auth-label">전화번호</label>
+
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            class="auth-input"
+            required
+          >
+        </div>
+
+      </div>
+
+      <!-- 버튼 -->
+      <div class="auth-button-group">
+        <button type="submit" class="auth-submit-button">
+          회원가입
+        </button>
+
+        <button type="reset" class="auth-cancel-button">
+          취소
+        </button>
+      </div>
+
+    </form>
+
+  </section>
+
+</main>
+
+{% include 'common/footer.html' %}
+
+{% endblock section %}
