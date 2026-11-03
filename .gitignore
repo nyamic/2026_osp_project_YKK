@@ -1,0 +1,16 @@
+# Firebase 인증 정보
+authentication/
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# 환경 변수
+.env
+
+# 에디터 / OS
+.vscode/
+.idea/
+.DS_Store
