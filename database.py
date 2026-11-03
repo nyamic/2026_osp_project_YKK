@@ -1,5 +1,7 @@
 import pyrebase
 import json
+import hashlib
+
 
 class DBhandler:
     def __init__(self):
@@ -19,4 +21,23 @@ class DBhandler:
         }
 
         self.db.child("item").child(name).set(item_info)
+        return True
+    def user_duplicate_check(self, id_string):
+        users = self.db.child("user").get()
+        if users.val() is None:
+            return True
+        for res in users.each():
+            if res.val()['id'] == id_string:
+                return False
+        return True
+
+    def insert_user(self, data, pw):
+        if not self.user_duplicate_check(str(data['id'])):
+            return False
+        user_info = {
+            "id": data['id'],
+            "pw": hashlib.sha256(pw.encode('utf-8')).hexdigest(),
+            "nickname": data['nickname']
+        }
+        self.db.child("user").push(user_info)
         return True
