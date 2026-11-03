@@ -7,3 +7,16 @@ class DBhandler:
             config = json.load(f)
         firebase = pyrebase.initialize_app(config)
         self.db = firebase.database()
+    
+    def insert_item(self, name, data, img_path):
+        item_info = {
+            "seller_id": data["seller_id"],
+            "price": int(data["price"]),
+            "address": data["address"],
+            "status": data["status"],
+            "email": data["email"],
+            "img_path": img_path
+        }
+
+        self.db.child("item").child(name).set(item_info)
+        return True
