@@ -2,6 +2,14 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
+
+def allowed_file(filename):
+    return (
+        '.' in filename and
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    )
+
 @app.route('/')
 def hello():
     return render_template('index.html')
@@ -31,6 +39,14 @@ def reg_item_submit():
 @app.route("/submit_item_post", methods=["POST"])
 def reg_item_submit_post():
         image_file=request.files["picture"]
+        if image_file and image_file.filename:
+            if not allowed_file(image_file.filename):
+                return """
+    <script>
+        alert("지원하지 않는 이미지 형식입니다.\\nPNG, JPG, JPEG, GIF, WEBP 파일만 업로드할 수 있습니다.");
+        history.back();
+    </script>
+    """
         image_file.save("static/images/{}".format(image_file.filename))
         data=request.form
         return render_template("result.html", data=data,
