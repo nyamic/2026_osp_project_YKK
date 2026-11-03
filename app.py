@@ -46,7 +46,7 @@ def login():
 def signup():
     return render_template("signup.html")
 
-@app.route("/singup_post", methods=['POST'])
+@app.route("/signup_post", methods=['POST'])
 def register_user():
     data=request.form
     pw=request.form['pw']
