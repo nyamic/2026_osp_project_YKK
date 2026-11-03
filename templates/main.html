@@ -1,0 +1,131 @@
+{% extends "index.html" %}
+
+{% block section %}
+{% include 'common/header.html' %}
+
+<main class="page-background main-page">
+
+  <!-- 상품 목록 영역 -->
+  <section class="product-list-section">
+
+    <div class="product-list-container">
+
+      <!-- 상품 목록 -->
+      <div class="product-list">
+
+        <!-- 상품 1 -->
+        <div class="product-card">
+          <a href="#" class="product-link">
+
+            <div class="product-image">
+              <img src="#" alt="먼작귀 치이카와 샤프">
+            </div>
+
+            <div class="product-info">
+              <p class="product-name">먼작귀 치이카와 샤프</p>
+              <p class="product-price">₩ 10,500</p>
+            </div>
+
+          </a>
+        </div>
+
+        <!-- 상품 2 -->
+        <div class="product-card">
+          <a href="#" class="product-link">
+
+            <div class="product-image">
+              <img src="#" alt="스테들러 슬라이딩 지우개">
+            </div>
+
+            <div class="product-info">
+              <p class="product-name">스테들러 슬라이딩 지우개</p>
+              <p class="product-price">₩ 1,650</p>
+            </div>
+
+          </a>
+        </div>
+
+        <!-- 상품 3 -->
+        <div class="product-card">
+          <a href="#" class="product-link">
+
+            <div class="product-image">
+              <img src="#" alt="독도 연필세트">
+            </div>
+
+            <div class="product-info">
+              <p class="product-name">독도 연필세트 B 8자루입</p>
+              <p class="product-price">₩ 2,000</p>
+            </div>
+
+          </a>
+        </div>
+
+        <!-- 상품 4 -->
+        <div class="product-card">
+          <a href="#" class="product-link">
+
+            <div class="product-image">
+              <img src="#" alt="소프트 파스텔 형광펜">
+            </div>
+
+            <div class="product-info">
+              <p class="product-name">소프트 파스텔 형광펜 4색 세트</p>
+              <p class="product-price">₩ 5,000</p>
+            </div>
+
+          </a>
+        </div>
+
+        <!-- 상품 5 -->
+        <div class="product-card">
+          <a href="#" class="product-link">
+
+            <div class="product-image">
+              <img src="#" alt="모닝글로리 연습장">
+            </div>
+
+            <div class="product-info">
+              <p class="product-name">모닝글로리 대용량 무지 연습장</p>
+              <p class="product-price">₩ 2,000</p>
+            </div>
+
+          </a>
+        </div>
+
+        <!-- 상품 6 -->
+        <div class="product-card">
+          <a href="#" class="product-link">
+
+            <div class="product-image">
+              <img src="#" alt="수퍼색연필">
+            </div>
+
+            <div class="product-info">
+              <p class="product-name">[지구과학] 수퍼색연필 12색</p>
+              <p class="product-price">₩ 3,000</p>
+            </div>
+
+          </a>
+        </div>
+
+      </div>
+
+      <!-- 상품 더보기 버튼(메인화면 전용) -->
+      <div class="main-product-more">
+        <a href="#" class="main-product-more-link">
+          <span class="main-product-more-icon">∨</span>
+          상품 더보기
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<!-- 푸터 -->
+{% include 'common/footer.html' %}
+
+{% endblock section %}
