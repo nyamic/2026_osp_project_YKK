@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
+from database import DBhandler
 
 app = Flask(__name__)
+DB = DBhandler()
 
 @app.route('/')
 def hello():
@@ -35,6 +37,24 @@ def reg_item_submit_post():
         data=request.form
         return render_template("result.html", data=data,
                                img_path="static/images/{}".format(image_file.filename))
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+@app.route("/signup")
+def signup():
+    return render_template("signup.html")
+
+@app.route("/singup_post", methods=['POST'])
+def register_user():
+    data=request.form
+    pw=request.form['pw']
+    if DB.insert_user(data,pw):
+        return render_template("login.html")
+    else:
+        return render_template("signup.html", error="User ID already exists!")
+
 
 if __name__ == '__main__':
     app.run(debug=True)
