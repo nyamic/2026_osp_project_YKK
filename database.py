@@ -41,3 +41,19 @@ class DBhandler:
         }
         self.db.child("user").push(user_info)
         return True
+
+    def find_user(self, id_, pw_hash):
+        users = self.db.child("user").get()
+        if users.val() is None:
+            return False
+        for res in users.each():
+            value = res.val()
+            if value['id'] == id_ and value['pw'] == pw_hash:
+                return True
+        return False
+
+    def get_items(self):
+        return self.db.child("item").get().val()
+
+    def get_item_byname(self, name):
+        return self.db.child("item").child(name).get().val()

@@ -1,0 +1,6 @@
+{% extends "index.html" %}
+{% block section %}
+<p>item name is <b>{{ name }}</b></p>
+<p>item status is <b>{{ data.status }}</b></p>
+<img src="/static/images/{{ data.img_path }}" width=140 height=200>
+{% endblock section %}
