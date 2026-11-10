@@ -1,4 +1,31 @@
- {% extends "index.html" %}
- {% block section %}
- This is the page that shows list.
- {% endblock section %}
+{% extends "index.html" %}
+{% block section %}
+<p>Total {{ total }} items</p>
+<table>
+    {% for row in data %}
+        <tr>
+            {% for key, value in row %}
+                <td>Product name: {{ key }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for key, value in row %}
+                <td onclick="location.href='/view_detail/{{ key }}'">
+                    <img src="/static/images/{{ value.img_path }}" width=140 height=200>
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+<nav class="pagination">
+    {% if page_arg > 1 %}
+        <a href="{{ url_for('view_list', page=page_arg - 1) }}">Prev</a>
+    {% endif %}
+    {% for p in range(1, total_pages + 1) %}
+        <a href="{{ url_for('view_list', page=p) }}">{{ p }}</a>
+    {% endfor %}
+    {% if page_arg < total_pages %}
+        <a href="{{ url_for('view_list', page=page_arg + 1) }}">Next</a>
+    {% endif %}
+</nav>
+{% endblock section %}

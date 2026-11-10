@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request
+from flask import session, redirect, url_for, flash
 from database import DBhandler
+import hashlib
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "helloosp"
 DB = DBhandler()
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
@@ -18,7 +21,24 @@ def hello():
 
 @app.route('/list')
 def view_list():
-    return render_template('list.html')
+    items = list((DB.get_items() or {}).items())
+    items_per_row = 2
+    items_per_page = 4
+    page = request.args.get("page", 0, type=int)
+    total_pages = max(1, (len(items) + items_per_page - 1) // items_per_page)
+    page = max(1, min(page, total_pages))
+    start = (page - 1) * items_per_page
+    page_items = items[start:start + items_per_page]
+    rows = []
+    for i in range(0, len(page_items), items_per_row):
+        rows.append(page_items[i:i + items_per_row])
+    return render_template('list.html', data=rows,
+                           page_arg=page, total_pages=total_pages, total=len(items))
+
+@app.route("/view_detail/<name>")
+def view_item_detail(name):
+    data = DB.get_item_byname(str(name))
+    return render_template("detail.html", name=name, data=data)
 
 @app.route('/review')
 def view_review():
@@ -58,6 +78,23 @@ def reg_item_submit_post():
 @app.route("/login")
 def login():
     return render_template("login.html")
+
+@app.route("/login_confirm", methods=['POST'])
+def login_user():
+    id_ = request.form['id']
+    pw = request.form['pw']
+    pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
+    if DB.find_user(id_, pw_hash):
+        session['id'] = id_
+        return redirect(url_for('hello'))
+    else:
+        flash("Wrong ID or PW!")
+        return render_template("login.html")
+
+@app.route("/logout")
+def logout_user():
+    session.clear()
+    return redirect(url_for('hello'))
 
 @app.route("/signup")
 def signup():
