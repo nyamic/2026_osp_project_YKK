@@ -1,0 +1,108 @@
+{% extends "index.html" %}
+
+{% block section %}
+
+{% include 'common/header.html' %}
+
+<main class="page-background product-detail-page">
+  <section class="product-detail-container">
+
+    <!-- 왼쪽: 상품 이미지 영역 -->
+    <div class="product-detail-image">
+      <div class="image-count">
+        <span>1/3</span>
+      </div>
+
+      <div class="product-image">
+        <img src="" alt="상품 이미지">
+      </div>
+
+      <!-- 이미지 이동 버튼 -->
+      <div class="image-navigation">
+        <button type="button" class="image-prev">
+          &#10094;
+        </button>
+
+        <button type="button" class="image-next">
+          &#10095;
+        </button>
+      </div>
+
+    </div>
+
+    <!-- 오른쪽: 상품 정보 영역 -->
+    <div class="product-detail-info">
+
+      <!-- 상품명 -->
+      <div class="product-detail-header">
+        <h1 class="product-title">
+          소프트 파스텔 형광펜 4색 세트
+        </h1>
+      </div>
+
+      <!-- 판매자 및 주소 -->
+      <div class="product-seller-info">
+
+        <div class="seller-item">
+          <span class="seller-label">제조사</span>
+          <span class="seller-name">@World of Pen</span>
+        </div>
+
+        <div class="seller-item">
+          <span class="seller-label">주소</span>
+          <span class="seller-address">
+            서울특별시 서대문구 이화여대길 52 (아산공학관 121호)
+          </span>
+        </div>
+
+      </div>
+
+      <!-- 가격 및 상품 상태 -->
+      <div class="product-price-section">
+
+        <span class="product-price">₩ 5,000</span>
+
+        <span class="product-status">
+          상태 | 새 상품
+        </span>
+
+      </div>
+
+      <!-- 상품 설명 -->
+      <div class="product-description-section">
+
+        <p class="product-description">
+          공부할 때 사용하기 좋은 색으로만 모은 핑크,
+          오렌지, 옐로우, 블루 4가지 색으로 이루어진
+          파스텔 형광펜 4색 세트 상품입니다.
+
+          은은하고 부드러운 파스텔 색상의 형광펜으로
+          눈의 피로감을 감소시킵니다.
+
+          빠른 잉크 건조로 번지지 않습니다.
+          형광펜 외에도 캘리그라피, 드로잉, 다이어리 꾸미기 등
+          다양하게 활용할 수 있습니다.
+        </p>
+
+      </div>
+
+      <!-- 버튼 영역 -->
+      <div class="product-detail-actions">
+
+        <button type="button" class="btn btn--primary">
+          구매하기
+        </button>
+
+        <button type="button" class="btn btn--secondary">
+          뒤로가기
+        </button>
+
+      </div>
+
+    </div>
+  </section>
+</main>
+
+{% include 'common/footer.html' %}
+
+{% endblock section %}

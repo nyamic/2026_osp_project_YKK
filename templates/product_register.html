@@ -1,0 +1,92 @@
+{% extends "index.html" %}
+
+{% block section %}
+
+{% include 'common/header.html' %}
+
+<main class="page-background product-register-page">
+  <section class="product-register-container">
+    <form class="product-register-form">
+
+      <!-- 상품 이미지 -->
+      <div class="product-image-section">
+        <div class="image-upload">
+          <label for="product-image" class="image-upload__label">
+            파일 선택
+          </label>
+          <input
+            type="file"
+            id="product-image"
+            name="productImage"
+            accept="image/*"
+          >
+          <img
+            id="product-image-preview"
+            class="image-upload__preview"
+            alt="상품 이미지 미리보기"
+          >
+        </div>
+      </div>
+
+      <!-- 상품 정보 -->
+      <div class="product-info-section">
+        <div class="form-column form-column--left">
+
+          <div class="form-group">
+            <label for="writer-id">작성자 ID</label>
+            <input type="text" id="writer-id" name="writerId">
+          </div>
+
+          <div class="form-group">
+            <label for="product-name">상품 이름</label>
+            <input type="text" id="product-name" name="productName">
+          </div>
+
+          <div class="form-group">
+            <label for="product-price">가격</label>
+            <input type="number" id="product-price" name="productPrice" placeholder="₩">
+          </div>
+
+          <div class="form-group">
+            <label for="product-status">상태</label>
+            <select id="product-status" name="productStatus">
+              <option value="">선택</option>
+              <option value="new">새 상품</option>
+              <option value="like-new">거의 새 것</option>
+              <option value="used">사용감 있음</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="form-column form-column--right">
+
+          <div class="form-group">
+            <label for="product-address">주소</label>
+            <input type="text" id="product-address" name="address">
+          </div>
+
+          <div class="form-group">
+            <label for="product-description">제품 설명</label>
+            <textarea id="product-description" name="productDescription"></textarea>
+          </div>
+
+        </div>
+
+        <div class="form-buttons">
+          <button type="button" class="btn btn--submit">
+            상품 등록
+          </button>
+          <button type="button" class="btn btn--cancel">
+            취소
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </section>
+</main>
+
+{% include 'common/footer.html' %}
+
+{% endblock section %}

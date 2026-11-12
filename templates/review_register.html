@@ -1,0 +1,115 @@
+{% extends "index.html" %}
+
+{% block section %}
+
+{% include 'common/header.html' %}
+
+<main class="page-background review-register-page">
+  <section class="review-register-container">
+    <form class="review-register-form">
+
+      <!-- 왼쪽: 리뷰 이미지 업로드 -->
+      <div class="review-image-section">
+        <div class="image-upload">
+          <label for="review-image" class="image-upload__label">
+            파일 선택
+          </label>
+          <input
+            type="file"
+            id="review-image"
+            name="reviewImage"
+            accept="image/*"
+          >
+          <img
+            id="review-image-preview"
+            class="image-upload__preview"
+            alt="리뷰 이미지 미리보기"
+          >
+        </div>
+      </div>
+
+      <!-- 리뷰 정보 입력 -->
+      <div class="review-info-section">
+
+        <div class="form-column form-column--left">
+
+          <div class="form-group">
+            <label for="review-writer-id">작성자 ID</label>
+            <input
+              type="text"
+              id="review-writer-id"
+              name="writerId"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="review-product-name">상품 이름</label>
+            <input
+              type="text"
+              id="review-product-name"
+              name="productName"
+            >
+          </div>
+
+          <div class="form-group">
+            <label>평점</label>
+
+            <div class="rating-input">
+              <input type="radio" id="rating-5" name="rating" value="5">
+              <label for="rating-5">★</label>
+
+              <input type="radio" id="rating-4" name="rating" value="4">
+              <label for="rating-4">★</label>
+
+              <input type="radio" id="rating-3" name="rating" value="3" checked>
+              <label for="rating-3">★</label>
+
+              <input type="radio" id="rating-2" name="rating" value="2">
+              <label for="rating-2">★</label>
+
+              <input type="radio" id="rating-1" name="rating" value="1">
+              <label for="rating-1">★</label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-column form-column--right">
+
+          <div class="form-group">
+            <label for="review-title">제목</label>
+            <input
+              type="text"
+              id="review-title"
+              name="reviewTitle"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="review-content">내용</label>
+            <textarea
+              id="review-content"
+              name="reviewContent"
+            ></textarea>
+          </div>
+
+        </div>
+
+        <!-- 버튼 영역 -->
+        <div class="form-buttons">
+          <button type="button" class="btn btn--submit">
+            리뷰 등록
+          </button>
+          <button type="button" class="btn btn--cancel">
+            취소
+          </button>
+        </div>
+
+      </div>
+    </form>
+  </section>
+</main>
+
+{% include 'common/footer.html' %}
+
+{% endblock section %}
