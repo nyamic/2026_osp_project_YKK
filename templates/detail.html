@@ -1,6 +1,69 @@
 {% extends "index.html" %}
 {% block section %}
-<p>item name is <b>{{ name }}</b></p>
-<p>item status is <b>{{ data.status }}</b></p>
-<img src="/static/images/{{ data.img_path }}" width=140 height=200>
+<h2>Item Detail</h2>
+
+<p>Product name: {{ name }}</p>
+
+<p>Seller ID: {{ data['seller_id'] }}</p>
+
+<p>Address: {{ data['address'] }}</p>
+
+<p>Price: {{ data['price'] }}</p>
+
+<p>
+    Status:
+    {% if data['status'] == "Likely New" %}
+        Likely New
+    {% elif data['status'] == "Used" %}
+        Used
+    {% endif %}
+</p>
+
+<p>Email: {{ data['email'] }}</p>
+
+{% if img_path %}
+    <p>Image:</p>
+    <img src="{{url_for('static', filename='images/'+img_path) }}"
+         alt="상품 이미지"
+         style="width: 200px; height: auto;">
+{% endif %}
+
+<button id="like-button" disabled></button>
+<p id="like-message"></p>
+<script>
+    const button = document.getElementById("like-button");
+    const message = document.getElementById("like-message");
+    let liked = false;
+    function showLikeState(value) {
+        liked = value;
+        button.textContent = liked ? "♥ Liked" : "♡ Like";
+    button.style.color = liked ? "red" : "black";
+    }
+    async function loadLikeState() {
+        try {
+            const response = await fetch("/item_like/{{name}}");
+            if (response.status === 401) {
+            throw new Error("Please log in to use likes.");
+            }   
+            const data = await response.json();
+            showLikeState(data.liked);
+            button.disabled = false;
+        } catch (error) {
+            button.textContent = "Like unavailable";
+            message.textContent = error.message;
+        }
+    }
+    loadLikeState();
+    button.addEventListener("click", async function () {
+        const nextState = !liked;
+        message.textContent = "";
+        const response = await fetch("/item_like/{{name}}", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ liked: nextState })
+        });
+        const data = await response.json();
+        showLikeState(data.liked);
+    });
+</script>
 {% endblock section %}

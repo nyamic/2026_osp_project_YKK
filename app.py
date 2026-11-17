@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 from flask import session, redirect, url_for, flash
 from database import DBhandler
 import hashlib
@@ -38,7 +38,8 @@ def view_list():
 @app.route("/view_detail/<name>")
 def view_item_detail(name):
     data = DB.get_item_byname(str(name))
-    return render_template("detail.html", name=name, data=data)
+    img_path = data.get('img_path') if data else None
+    return render_template("detail.html", name=name, data=data, img_path=img_path)
 
 @app.route('/review')
 def view_review():
@@ -60,10 +61,10 @@ def reg_item_submit():
 
 @app.route("/submit_item_post", methods=["POST"])
 def reg_item_submit_post():
-        image_file=request.files["picture"]
-        if image_file and image_file.filename:
-            if not allowed_file(image_file.filename):
-                return """
+    image_file=request.files["picture"]
+    if image_file and image_file.filename:
+        if not allowed_file(image_file.filename):
+            return """
     <script>
         alert("지원하지 않는 이미지 형식입니다.\\nPNG, JPG, JPEG, GIF, WEBP 파일만 업로드할 수 있습니다.");
         history.back();
@@ -109,6 +110,16 @@ def register_user():
     else:
         return render_template("signup.html", error="User ID already exists!")
 
+@app.route("/item_like/<name>", methods=["GET", "POST"])
+def item_like(name):
+    user_id = session.get("id")
+    if user_id is None:
+        return jsonify({"error": "Login required"}), 401
+    if request.method == "GET":
+        return jsonify({"liked": DB.get_heart(user_id, name)})  
+    data = request.get_json()
+    saved = DB.set_heart(user_id, name, data["liked"])
+    return jsonify({"liked": saved})
 
 if __name__ == '__main__':
     app.run(debug=True)
