@@ -42,7 +42,35 @@ def view_item_detail(name):
 
 @app.route('/review')
 def view_review():
-    return render_template('review.html')
+    reviews = list((DB.get_reviews() or {}).items())
+
+    items_per_row = 2
+    items_per_page = 4
+
+    page = request.args.get("page", 1, type=int)
+
+    total_pages = max(1, (len(reviews) + items_per_page - 1) // items_per_page)
+    page = max(1, min(page, total_pages))
+
+    start = (page - 1) * items_per_page
+    page_reviews = reviews[start:start + items_per_page]
+
+    rows = []
+    for i in range(0, len(page_reviews), items_per_row):
+        rows.append(page_reviews[i:i + items_per_row])
+
+    return render_template(
+        'review.html',
+        data=rows,
+        page_arg=page,
+        total_pages=total_pages,
+        total=len(reviews)
+    )
+
+@app.route("/view_review_detail/<review_id>")
+def view_review_detail(review_id):
+    review = DB.get_review_by_id(review_id)
+    return render_template("review_detail.html", review_id=review_id, review=review)
 
 @app.route('/register-items')
 def register_items():

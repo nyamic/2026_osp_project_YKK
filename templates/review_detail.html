@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+
+{% block section %}
+
+<h2>{{ review.title }}</h2>
+
+<p>Product: <b>{{ review.name }}</b></p>
+
+<p>Rating: {{ "★" * (review.rating|int) }}</p>
+
+<p>{{ review.content }}</p>
+
+<img src="/static/images/{{ review.img_path }}" style="max-width:100%;">
+
+<p><a href="/review">Back to the list</a></p>
+
+{% endblock section %}
