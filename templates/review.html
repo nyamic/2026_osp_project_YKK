@@ -23,11 +23,7 @@
     {% endif %}
 
     {% for p in range(1, total_pages + 1) %}
-        {% if p == page_arg %}
-            <b>{{ p }}</b>
-        {% else %}
-            <a href="{{ url_for('view_review', page=p) }}">{{ p }}</a>
-        {% endif %}
+        <a href="{{ url_for('view_review', page=p) }}">{{ p }}</a>
     {% endfor %}
 
     {% if page_arg < total_pages %}

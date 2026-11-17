@@ -2,15 +2,16 @@
 
 {% block section %}
 
-<h2>{{ review.title }}</h2>
+<h2>Review Title : {{ review.title }}</h2>
 
-<p>Product: <b>{{ review.name }}</b></p>
+<p>Product name : <b>{{ review.name }}</b></p>
 
 <p>Rating: {{ "★" * (review.rating|int) }}</p>
 
-<p>{{ review.content }}</p>
+<p>Review Content : {{ review.content }}</p>
 
-<img src="/static/images/{{ review.img_path }}" style="max-width:100%;">
+<img src="/static/images/{{ review.img_path }}" alt="리뷰 상품 이미지"
+         style="width: 200px; height: auto;">
 
 <p><a href="/review">Back to the list</a></p>
 
