@@ -43,7 +43,35 @@ def view_item_detail(name):
 
 @app.route('/review')
 def view_review():
-    return render_template('review.html')
+    reviews = list((DB.get_reviews() or {}).items())
+
+    items_per_row = 2
+    items_per_page = 4
+
+    page = request.args.get("page", 1, type=int)
+
+    total_pages = max(1, (len(reviews) + items_per_page - 1) // items_per_page)
+    page = max(1, min(page, total_pages))
+
+    start = (page - 1) * items_per_page
+    page_reviews = reviews[start:start + items_per_page]
+
+    rows = []
+    for i in range(0, len(page_reviews), items_per_row):
+        rows.append(page_reviews[i:i + items_per_row])
+
+    return render_template(
+        'review.html',
+        data=rows,
+        page_arg=page,
+        total_pages=total_pages,
+        total=len(reviews)
+    )
+
+@app.route("/view_review_detail/<review_id>")
+def view_review_detail(review_id):
+    review = DB.get_review_by_id(review_id)
+    return render_template("review_detail.html", review_id=review_id, review=review)
 
 @app.route('/register-items')
 def register_items():
@@ -120,6 +148,23 @@ def item_like(name):
     data = request.get_json()
     saved = DB.set_heart(user_id, name, data["liked"])
     return jsonify({"liked": saved})
+@app.route("/reg_review_init/<name>/")
+def reg_review_init(name):
+    return render_template("reg_reviews.html", name=name)
+
+@app.route("/reg_reviews", methods=["POST"])
+def reg_reviews():
+    data = request.form
+    image_file = request.files.get("photo")
+
+    img_name = ""
+    if image_file and image_file.filename:
+        image_file.save("static/images/{}".format(image_file.filename)) 
+        img_name = image_file.filename
+
+    DB.insert_review(data, img_name) 
+    return redirect(url_for("hello"))  
+
 
 if __name__ == '__main__':
     app.run(debug=True)
