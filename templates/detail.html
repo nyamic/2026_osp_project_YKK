@@ -3,4 +3,9 @@
 <p>item name is <b>{{ name }}</b></p>
 <p>item status is <b>{{ data.status }}</b></p>
 <img src="/static/images/{{ data.img_path }}" width=140 height=200>
+
+<a href="{{ url_for('reg_review_init', name=name) }}">
+  <button type="button">리뷰 쓰기</button>
+</a>
+
 {% endblock section %}
