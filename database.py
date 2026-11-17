@@ -58,6 +58,11 @@ class DBhandler:
     def get_item_byname(self, name):
         return self.db.child("item").child(name).get().val()
 
+    def get_reviews(self):
+        return self.db.child("review").get().val()
+
+    def get_review_by_id(self, review_id):
+        return self.db.child("review").child(review_id).get().val()
     def insert_review(self, data, img_path):
         review_info = {
         "name": data["name"],
